@@ -16,7 +16,7 @@ at family and genus level.
 Initially, the taxonomy supports a taxfile for the [RDP classifier](http://sourceforge.net/projects/rdp-classifier/)
 which we use in the [Qiime](http://qiime.org/) pipeline.
 
-Simply use *midas_taxonomy.txt* as the taxonomy file for running the RDP classifier 
+Simply use [[midas_taxonomy.txt]] as the taxonomy file for running the RDP classifier 
 in conjuction with the gg_97_otus_4feb2011.fasta in place of the standard taxfile.
 
 ## Source
@@ -36,4 +36,4 @@ Details of the curations are in changelog.txt
 
 The curated taxonomy was exported from ARB using NDS export of the MSA_id (arb
 "name" field) and taxonomy fields. The file was reformated to comply with the
-formatting of the RDP classifier, using the check_rdp_taxfile.py script.
+formatting of the RDP classifier, using the [[check_rdp_taxfile.py]] script.
