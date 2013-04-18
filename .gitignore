@@ -1,0 +1,61 @@
+*.py[co]
+
+# emacs backups
+*~
+\#*#
+
+# data files
+*.gb
+*.gp
+*.fna
+*.fasta
+*.fastq
+*.dat
+*.fa
+*.fas
+*.sff
+
+# binary file formats
+*.gz
+*.zip
+*.tar
+*.bz2
+*.xls*
+*.doc*
+*.ppt*
+*.RData
+*.arb
+*.pdf
+*.ab1  # abi chromatogram
+*.mas  # mega alignment
+*.mts  # mega tree file
+*.mdsx  # mega session file
+*.emf  # enhanced metafile object
+
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+
+#Translations
+*.mo
+
+#Mr Developer
+.mr.developer.cfg
+
