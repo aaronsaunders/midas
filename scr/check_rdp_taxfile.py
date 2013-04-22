@@ -47,14 +47,14 @@ def check_taxstring(line):
     if len(columns) != 2:
         return 'error with number of columns'
     taxstring = columns[1]
-    
+
     # must contain 6 tax levels
     taxstrings = [ taxname.strip() for taxname in taxstring.split(';')[:6] ]
 
     # levels must be in order and correct
-    taxlevels = [ 'k__', 'p__', 'c__', 'o__', 'f__', 'g__'  ]
+    taxprefixes = [ 'k__', 'p__', 'c__', 'o__', 'f__', 'g__'  ]
     for level, taxname in enumerate(taxstrings):
-        if taxname[:3] != taxlevels[level]:
+        if taxname[:3] != taxprefixes[level]:
             result = 'wrong order of taxlevels'
 
     return result
@@ -76,11 +76,14 @@ def fix_taxstring(line):
     # truncates tax levels at 6
     taxstrings = [ taxname.strip() for taxname in taxstring.split(';')[:6] ]
 
-    # empty levels are filled with the taxlevel placeholder
-    taxlevels = [ 'k__', 'p__', 'c__', 'o__', 'f__', 'g__'  ]
+    taxprefixes = [ 'k__', 'p__', 'c__', 'o__', 'f__', 'g__'  ]
     for level, taxname in enumerate(taxstrings):
+        # empty levels are filled with the taxlevel placeholder
         if taxname is '':
-            taxstrings[level] = taxlevels[level]
+            taxstrings[level] = taxprefixes[level]
+        # checks that all taxlevel prefixes have 2 underscores
+        if taxname[:4] != taxprefixes[level]
+            taxname[:4] = taxprefixes[level]
 
     length = len(taxstrings)
     if length == 1:
@@ -93,12 +96,6 @@ def fix_taxstring(line):
 	taxstrings.append('f__')
     if length <= 5:
 	taxstrings.append('g__')
-
-    # checks that all taxlevel prefixes have 2 underscores
-    for taxlevel in taxlevels:
-       if taxlevel[1:2] == '_':
-            if taxlevel[2:3] != '_':
-                taxlevel = taxlevel[:2] + '_' + taxlevel[3:]
 
     newline =  '{0}\t{1}'.format( acc, ';'.join(taxlevels) )
 
