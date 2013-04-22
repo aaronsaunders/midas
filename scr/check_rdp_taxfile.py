@@ -16,19 +16,22 @@ Reformats the output of ARB NDS export (name, taxonomy) for RDP classifier
 """
 
 def check_taxfile_line(line, accs):
+    if line.count('\t') > 1:
+        return 'too many columns', accs, line
 
     acc = get_acc(line)
     if not acc:
-        return ('no id'), accs
+        return 'no id', accs, line
     if acc:
     	if acc in accs:
-            return ('duplicate id #%s' % acc), accs
+            return ('duplicate id #%s' % acc), accs, line
         else:
             accs.append(acc)
+
     newline = fix_taxstring(line)
     result = check_taxstring(newline)
 
-    return result, accs, newline
+    return (result, accs, newline)
 
 
 def get_acc(line):
@@ -41,7 +44,7 @@ def get_acc(line):
     return acc
 
 def check_taxstring(line):
-    result = None
+    result = 'good'
 
     columns = line.split('\t')
     if len(columns) != 2:
@@ -64,40 +67,25 @@ def fix_taxstring(line):
     takes a taxstring and truncates it at 6 levels and
     replaces missing data with placeholders (eg. 'p__')
     """
-    columns = line.split('\t')
-    if len(columns) != 2:
-        return None
-    acc = columns[0]
-    taxstring = columns[1]
+    acc, taxstring = line.split('\t')
 
     # replaces ARB NDS export "/" with ";"
     taxstring = taxstring.replace('/', ';')
+
+    # must have 6 levels
+    taxstring = taxstring + ';' * (5 - taxstring.count(';'))
 
     # truncates tax levels at 6
     taxstrings = [ taxname.strip() for taxname in taxstring.split(';')[:6] ]
 
     taxprefixes = [ 'k__', 'p__', 'c__', 'o__', 'f__', 'g__'  ]
-    for level, taxname in enumerate(taxstrings):
+    for level, taxname in zip(range(6), taxstrings):
         # empty levels are filled with the taxlevel placeholder
-        if taxname is '':
-            taxstrings[level] = taxprefixes[level]
         # checks that all taxlevel prefixes have 2 underscores
-        if taxname[:4] != taxprefixes[level]
-            taxname[:4] = taxprefixes[level]
+        if taxname[:4] != taxprefixes[level]:
+            taxstrings[level] = taxprefixes[level] + taxname[3:]
 
-    length = len(taxstrings)
-    if length == 1:
-	taxstrings.append('p__')
-    if length <= 2:
-	taxstrings.append('c__')
-    if length <= 3:
-	taxstrings.append('o__')
-    if length <= 4:
-	taxstrings.append('f__')
-    if length <= 5:
-	taxstrings.append('g__')
-
-    newline =  '{0}\t{1}'.format( acc, ';'.join(taxlevels) )
+    newline =  '{0}\t{1}\n'.format( acc, ';'.join(taxstrings) )
 
     return newline
 
@@ -108,42 +96,35 @@ def main():
     with open(filename, 'r') as taxfile:
         lines = taxfile.readlines()
 
-    error_counter = 0
+    errors = []
+    corrected = []
     accs = []
     newlines = []
     for n, line in enumerate(lines):
         line = line.rstrip('\n')
-        result, accs, newline = check_taxfile_line(line, accs)
-        if result:
-            print 'error: {0}: {1}: {2}'.format( n, result, newline )
-            error_counter += 1
+        if line.startswith("#"):
+            print line
+            continue
+        (result, accs, newline) = check_taxfile_line(line, accs)
+        if result != 'good':
+            errors.append( 'error in line {0}: {1} "{2}"'.format( n, result, newline[:-1] ) )
         else:
+            if line != newline:
+                corrected.append('corrected error in line {0}: "{1}" to "{2}"'.format( n, line, newline[:-1] ))
             newlines.append(newline)
 
 
     with open(outfilename, 'w') as outfile:
         outfile.writelines(newlines)
 
-    print "finished with {0} errors".format(error_counter)
+    print "finished with:"
+    print "{0} corrected errors\n".format(len(corrected))
+    for error in corrected:
+        print error
+    print
+    print "{0} uncorrected errors\n".format(len(errors))
+    for error in errors:
+        print error
 
 if __name__ == '__main__':
-    # 1. must have 6 levels
-    # 2. each rank must have a name
-    # 3. Check Capitalisation
-    # 4. check that each rank is only used once
-    # 5. check the order of ranks
-    #error1 = r'123\tk__Bacteria;p__Proteobacteria;c__Betaproteobacteria;o__Burkholderiales;f__Comamonadaceae'
-    #error2 = r'123\tk__Bacteria;p__Proteobacteria;c__Betaproteobacteria;o__Burkholderiales;f__Comamonadaceae;'
-    #error3 = r'123\tk__Bacteria;p__Proteobacteria;c__Betaproteobacteria;o__Burkholderiales;f__comamonadaceae;g__'
-    #error4 = r'123\tk__Bacteria;p__Proteobacteria;k__Betaproteobacteria;o__Burkholderiales;f__Comamonadaceae;g__'
-    #error5 = r'123\tk__Bacteria;c__Proteobacteria;p__Betaproteobacteria;o__Burkholderiales;f__Comamonadaceae;g__,'
-    #error6 = r'123\tk__Bacteria;p__Proteobacteria;c__Betaproteobacteria;o__Burkholderiales;f__Comamonadaceae;g__'
-    #error7 = r'k__Bacteria;p__Proteobacteria;c__Betaproteobacteria;o__Burkholderiales;f__Comamonadaceae;g__'
-    #tests = [ error1, error2, error3, error4, error5, error6, error7 ]
-    #accs = []
-    #for n, test in enumerate(tests):
-    #    result = check_taxfile_line(test, accs)
-    #    if result:
-    #        print 'error{0}: {1}: {2}'.format( n, result, test )
-
     main()
