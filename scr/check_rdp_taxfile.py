@@ -2,6 +2,18 @@
 
 import re, sys
 
+"""
+check_rdp_taxfile.py taxfilename outfilename
+
+takes a text file that ostensibly formatted for RDP classifier
+writes a corrected file to outfile
+
+Reformats the output of ARB NDS export (name, taxonomy) for RDP classifier
+
+- accepts only 6 levels with prefixes: k__, p__, c__, o__, f__, g__
+- other levels are removed
+
+"""
 
 def check_taxfile_line(line, accs):
 
@@ -12,7 +24,7 @@ def check_taxfile_line(line, accs):
     	if acc in accs:
             return ('duplicate id #%s' % acc), accs
         else:
-            accs.append(acc) 
+            accs.append(acc)
     newline = fix_taxstring(line)
     result = check_taxstring(newline)
 
@@ -23,14 +35,14 @@ def get_acc(line):
     exp = '^\d+'
     acc_mobj = re.match(exp, line)
     if not acc_mobj:
-        return 
+        return
     acc = acc_mobj.group()
 
     return acc
 
 def check_taxstring(line):
     result = None
-    
+
     columns = line.split('\t')
     if len(columns) != 2:
         return 'error with number of columns'
@@ -48,7 +60,7 @@ def check_taxstring(line):
 
 def fix_taxstring(line):
     """
-    takes a taxstring and truncates it at 6 levels and 
+    takes a taxstring and truncates it at 6 levels and
     replaces missing data with placeholders (eg. 'p__')
     """
     columns = line.split('\t')
@@ -56,10 +68,14 @@ def fix_taxstring(line):
         return None
     acc = columns[0]
     taxstring = columns[1]
+
+    # replaces ARB NDS export "/" with ";"
     taxstring = taxstring.replace('/', ';')
-    # must contain 6 tax levels
+
+    # truncates tax levels at 6
     taxstrings = [ taxname.strip() for taxname in taxstring.split(';')[:6] ]
 
+    # empty levels are filled with the taxlevel placeholder
     taxlevels = [ 'k__', 'p__', 'c__', 'o__', 'f__', 'g__'  ]
     for level, taxname in enumerate(taxstrings):
         if taxname is '':
@@ -77,19 +93,20 @@ def fix_taxstring(line):
     if length <= 5:
 	taxstrings.append('g__')
 
+    # checks that all taxlevel prefixes have 2 underscores
     for taxlevel in taxlevels:
        if taxlevel[1:2] == '_':
             if taxlevel[2:3] != '_':
                 taxlevel = taxlevel[:2] + '_' + taxlevel[3:]
-                
+
     newline =  '{0}\t{1}'.format( acc, ';'.join(taxlevels) )
-    
+
     return newline
 
 def main():
     filename = sys.argv[1]
     outfilename = sys.argv[2]
-    
+
     with open(filename, 'r') as taxfile:
         lines = taxfile.readlines()
 
@@ -99,14 +116,14 @@ def main():
         line = line.rstrip('\n')
         result, accs, newline = check_taxfile_line(line, accs)
         if result:
-            print 'line {0}: {1}: {2}'.format( n, result, newline )
+            print 'error: {0}: {1}: {2}'.format( n, result, newline )
         else:
             newlines.append(newline)
 
 
     with open(outfilename, 'w') as outfile:
         outfile.writelines(newlines)
-    
+
 
 if __name__ == '__main__':
     # 1. must have 6 levels
