@@ -47,6 +47,7 @@ def check_taxstring(line):
     if len(columns) != 2:
         return 'error with number of columns'
     taxstring = columns[1]
+    
     # must contain 6 tax levels
     taxstrings = [ taxname.strip() for taxname in taxstring.split(';')[:6] ]
 
@@ -110,6 +111,7 @@ def main():
     with open(filename, 'r') as taxfile:
         lines = taxfile.readlines()
 
+    error_counter = 0
     accs = []
     newlines = []
     for n, line in enumerate(lines):
@@ -117,6 +119,7 @@ def main():
         result, accs, newline = check_taxfile_line(line, accs)
         if result:
             print 'error: {0}: {1}: {2}'.format( n, result, newline )
+            error_counter += 1
         else:
             newlines.append(newline)
 
@@ -124,6 +127,7 @@ def main():
     with open(outfilename, 'w') as outfile:
         outfile.writelines(newlines)
 
+    print "finished with {0} errors".format(error_counter)
 
 if __name__ == '__main__':
     # 1. must have 6 levels
