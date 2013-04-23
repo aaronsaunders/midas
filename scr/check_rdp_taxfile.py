@@ -107,10 +107,10 @@ def main():
             continue
         (result, accs, newline) = check_taxfile_line(line, accs)
         if result != 'good':
-            errors.append( 'error in line {0}: {1} "{2}"'.format( n, result, newline[:-1] ) )
+            errors.append( 'error in line {0}: {1} "{2}"'.format( n, result, newline.strip() ) )
         else:
-            if line != newline:
-                corrected.append('corrected error in line {0}: "{1}" to "{2}"'.format( n, line, newline[:-1] ))
+            if line != newline.strip():
+                corrected.append('corrected error in line {0}: "{1}" to "{2}"'.format( n, line, newline.strip() ))
             newlines.append(newline)
 
 
