@@ -1,0 +1,15 @@
+# 1. must have 6 levels (no error, added)
+# 2. each rank must have a name (no error, added)
+# 3. Check Capitalisation
+# 4. check that each rank is only used once
+# 5. check the order of ranks
+# 6. no acc. (wrong number of columns)
+# 7. No error!
+001	k__Bacteria;p__Proteobacteria;c__Betaproteobacteria;o__Burkholderiales;f__Comamonadaceae
+002	k__Bacteria;p__Proteobacteria;c__Betaproteobacteria;o__Burkholderiales;f__Comamonadaceae;
+003	k__Bacteria;p__Proteobacteria;c__Betaproteobacteria;o__Burkholderiales;f__comamonadaceae;g__
+004	k__Bacteria;p__Proteobacteria;k__Betaproteobacteria;o__Burkholderiales;f__Comamonadaceae;g__
+005	k__Bacteria;c__Proteobacteria;p__Betaproteobacteria;o__Burkholderiales;f__Comamonadaceae;g__
+k__Bacteria;p__Proteobacteria;c__Betaproteobacteria;o__Burkholderiales;f__Comamonadaceae;g__
+006	k__Bacteria;p__Proteobacteria;c__Betaproteobacteria;o__Burkholderiales;f__Comamonadaceae;g__	
+007	k__Bacteria;p__Proteobacteria;c__Betaproteobacteria;o__Burkholderiales;f__Comamonadaceae;g__
