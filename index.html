@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="MIDAS - The Microbial Database of Activated Sludge : A database and taxonomy of microbes in activated sludge" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>MIDAS - The Microbial Database of Activated Sludge</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/aaronsaunders/midas">View on GitHub</a>
+
+          <h1 id="project_title">MIDAS - The Microbial Database of Activated Sludge</h1>
+          <h2 id="project_tagline">A database and taxonomy of microbes in activated sludge</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/aaronsaunders/midas/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/aaronsaunders/midas/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>The publically available databases are an invaluable resource for the scientific 
+community. However, the curation of a taxonomy over all Bacteria and Archaea is a 
+collosal undertaking we found that many new names were missing from the taxonomy 
+and many of the clades of importance in activated sludge were poorly classified.</p>
+
+<p>The ambition of the MIDAS database is to deliver the best and most updated taxonomy 
+of organisms found in activated sludge ecosystem. The taxonomy strings used are derived
+from and compatible with the widely-used <a href="http://greengenes.lbl.gov/">Greengenes</a> 
+database but is curated mostly at the lower taxonomic levels to improve classification 
+at family and genus level. </p>
+
+<h2>Use</h2>
+
+<p>Initially, the taxonomy supports a taxfile for the <a href="http://sourceforge.net/projects/rdp-classifier/">RDP classifier</a>
+which we use in the <a href="http://qiime.org/">Qiime</a> pipeline.</p>
+
+<p>Simply use midas_taxonomy.txt as the taxonomy file for running the RDP classifier 
+in conjuction with the gg_97_otus_4feb2011.fasta in place of the standard taxfile.</p>
+
+<h2>Source</h2>
+
+<p>The original database came from:</p>
+
+<p><a href="http://greengenes.lbl.gov/Download/Sequence_Data/Fasta_data_files/Caporaso_Reference_OTUs/gg_otus_4feb2011.tgz">http://greengenes.lbl.gov/Download/Sequence_Data/Fasta_data_files/Caporaso_Reference_OTUs/gg_otus_4feb2011.tgz</a></p>
+
+<p>A 16S rRNA gene library was made using V1-V3 primers and sequenced with 454 FLX the 
+400 bp products analysed with <a href="qiime.org">Qiime</a> and the the PyNAST aligned 97% OTU 
+representative sequences imported into the <a href="http://www.arb-home.de">ARB</a> database. 
+The sequences were inserted into the reference tree using parsimony insertion.  The 
+placement of the short reads was used as a guide for the manual curation of the 
+taxonomy.</p>
+
+<p>Details of the curations are in changelog.txt (in preparation...)</p>
+
+<p>The curated taxonomy was exported from ARB using NDS export of the MSA_id (arb
+"name" field) and taxonomy fields. The file was reformated to comply with the
+formatting of the RDP classifier, using the [[check_rdp_taxfile.py]] script.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">MIDAS - The Microbial Database of Activated Sludge maintained by <a href="https://github.com/aaronsaunders">aaronsaunders</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
