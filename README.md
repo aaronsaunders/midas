@@ -16,14 +16,13 @@ at family and genus level.
 Initially, the taxonomy supports a taxfile for the [RDP classifier](http://sourceforge.net/projects/rdp-classifier/)
 which we use in the [Qiime](http://qiime.org/) pipeline.
 
-Simply use midas_taxonomy.txt as the taxonomy file for running the RDP classifier 
-in conjuction with the gg_97_otus_4feb2011.fasta in place of the standard taxfile.
+Simply use [midas_taxonomy.txt](midas_taxonomy.txt) as the taxonomy file for running the RDP classifier in place of the standard taxfile
+in conjuction with the `gg_97_otus_4feb2011.fasta` refseq file from [Greengenes Feb 2011 release](http://greengenes.lbl.gov/Download/Sequence_Data/Fasta_data_files/Caporaso_Reference_OTUs/gg_otus_4feb2011.tgz)
+.
 
 ## Source
 
-The original database came from:
-
-http://greengenes.lbl.gov/Download/Sequence_Data/Fasta_data_files/Caporaso_Reference_OTUs/gg_otus_4feb2011.tgz
+The original database came from the Greengenes [Feb 2011 release](http://greengenes.lbl.gov/Download/Sequence_Data/Fasta_data_files/Caporaso_Reference_OTUs/gg_otus_4feb2011.tgz)
 
 A 16S rRNA gene library was made using V1-V3 primers and sequenced with 454 FLX the 
 400 bp products analysed with [Qiime](qiime.org) and the the PyNAST aligned 97% OTU 
@@ -36,4 +35,4 @@ Details of the curations are in changelog.txt (in preparation...)
 
 The curated taxonomy was exported from ARB using NDS export of the MSA_id (arb
 "name" field) and taxonomy fields. The file was reformated to comply with the
-formatting of the RDP classifier, using the [[check_rdp_taxfile.py]] script.
+formatting of the RDP classifier, using the [check_rdp_taxfile.py](https://github.com/aaronsaunders/midas/blob/master/scr/check_rdp_taxfile.py) script.
