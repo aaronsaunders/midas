@@ -4,11 +4,11 @@
   <head>
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="MIDAS - The Microbial Database of Activated Sludge : A field guide for the microbes in activated sludge" />
+    <meta name="description" content="MIDAS: Field guide to the microbes of activated sludge : " />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>MIDAS - The Microbial Database of Activated Sludge</title>
+    <title>MIDAS: Field guide to the microbes of activated sludge</title>
   </head>
 
   <body>
@@ -18,8 +18,8 @@
         <header class="inner">
           <a id="forkme_banner" href="https://github.com/aaronsaunders/midas">View on GitHub</a>
 
-          <h1 id="project_title">MIDAS - The Microbial Database of Activated Sludge</h1>
-          <h2 id="project_tagline">A field guide for the microbes in activated sludge</h2>
+          <h1 id="project_title">MIDAS: Field guide to the microbes of activated sludge</h1>
+          <h2 id="project_tagline"></h2>
 
             <section id="downloads">
               <a class="zip_download_link" href="https://github.com/aaronsaunders/midas/zipball/master">Download this project as a .zip file</a>
@@ -31,7 +31,55 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <p>The publically available databases are an invaluable resource for the scientific 
+        <p>MIDAS is a central resource that links the most updated naming (taxonomy) and sequence data with functional information about the <em>in situ</em> metabolism of microbes in this habitat.</p>
+
+<p>We anticipate the following use cases:</p>
+
+<ul>
+<li>
+<strong>Genus/species X has been identified in my plant.</strong> 
+
+<ul>
+<li>Are they typical (core) organisms in activated sludge?</li>
+<li>What function do they typically perform?</li>
+<li>Are these organisms occassional (transient) organisms that may be problematic for plant operation?</li>
+</ul>
+</li>
+<li>
+<strong>I have filaments of morphology, eg. Eikelboom type 0157.</strong>
+
+<ul>
+<li>Which taxonomic groups are these organisms likely to come from?<br>
+</li>
+</ul>
+</li>
+<li>
+<strong>I am interested in a function in activated sludge.</strong>
+
+<ul>
+<li>Which microbes are typically associated with this process?</li>
+<li>How many organisms have been tested for this function?</li>
+</ul>
+</li>
+<li>
+<strong>I have a sequence library derived from activated sludge.</strong> 
+
+<ul>
+<li>Which organisms are present? </li>
+<li>How can I compare these names to those from other studies?</li>
+</ul>
+</li>
+</ul><h2>
+<a name="linking-taxonomy-and-function" class="anchor" href="#linking-taxonomy-and-function"><span class="octicon octicon-link"></span></a>Linking taxonomy and function</h2>
+
+<p><img src="URL" alt="MIDAS function table" title="https://github.com/aaronsaunders/midas/blob/gh-pages/images/MIDAS_functional_annotation.png"></p>
+
+<h2>
+<a name="using-midas-for-sequence-classification-taxonomic-assignment" class="anchor" href="#using-midas-for-sequence-classification-taxonomic-assignment"><span class="octicon octicon-link"></span></a>Using MIDAS for sequence classification (taxonomic assignment)</h2>
+
+<p><img src="URL" alt="MIDAS taxonomic assignment" title="https://github.com/aaronsaunders/midas/blob/gh-pages/images/MIDAS_taxonomic assignment.png"></p>
+
+<p>The publically available databases are an invaluable resource for the scientific 
 community. However, the curation of a taxonomy over all Bacteria and Archaea is a 
 collosal undertaking we found that many new names were missing from the taxonomy 
 and many of the clades of importance in activated sludge were poorly classified.</p>
@@ -42,41 +90,18 @@ from and compatible with the widely-used <a href="http://greengenes.lbl.gov/">Gr
 database but is curated mostly at the lower taxonomic levels to improve classification 
 at family and genus level. </p>
 
-<h2>
-<a name="use" class="anchor" href="#use"><span class="octicon octicon-link"></span></a>Use</h2>
-
-<p>Initially, the taxonomy supports a taxfile for the <a href="http://sourceforge.net/projects/rdp-classifier/">RDP classifier</a>
+<p>The taxonomy supports a taxfile for the <a href="http://sourceforge.net/projects/rdp-classifier/">RDP classifier</a>
 which we use in the <a href="http://qiime.org/">Qiime</a> pipeline.</p>
 
 <p>Simply use midas_taxonomy.txt as the taxonomy file for running the RDP classifier 
 in conjuction with the gg_97_otus_4feb2011.fasta in place of the standard taxfile.</p>
-
-<h2>
-<a name="source" class="anchor" href="#source"><span class="octicon octicon-link"></span></a>Source</h2>
-
-<p>The original database came from:</p>
-
-<p><a href="http://greengenes.lbl.gov/Download/Sequence_Data/Fasta_data_files/Caporaso_Reference_OTUs/gg_otus_4feb2011.tgz">http://greengenes.lbl.gov/Download/Sequence_Data/Fasta_data_files/Caporaso_Reference_OTUs/gg_otus_4feb2011.tgz</a></p>
-
-<p>A 16S rRNA gene library was made using V1-V3 primers and sequenced with 454 FLX the 
-400 bp products analysed with <a href="qiime.org">Qiime</a> and the the PyNAST aligned 97% OTU 
-representative sequences imported into the <a href="http://www.arb-home.de">ARB</a> database. 
-The sequences were inserted into the reference tree using parsimony insertion.  The 
-placement of the short reads was used as a guide for the manual curation of the 
-taxonomy.</p>
-
-<p>Details of the curations are in changelog.txt (in preparation...)</p>
-
-<p>The curated taxonomy was exported from ARB using NDS export of the MSA_id (arb
-"name" field) and taxonomy fields. The file was reformated to comply with the
-formatting of the RDP classifier, using the [[check_rdp_taxfile.py]] script.</p>
       </section>
     </div>
 
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">MIDAS - The Microbial Database of Activated Sludge maintained by <a href="https://github.com/aaronsaunders">aaronsaunders</a></p>
+        <p class="copyright">MIDAS: Field guide to the microbes of activated sludge maintained by <a href="https://github.com/aaronsaunders">aaronsaunders</a></p>
         <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
