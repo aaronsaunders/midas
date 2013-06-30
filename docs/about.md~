@@ -2,7 +2,6 @@
 layout: default
 title: about
 ---
-![AAU logo]({{ site.url }}/images/aau.png)
 MIDAS field guide grew out of the necessity for consistent and up-to-date naming and information about activated sludge microbes. In 2006, we began an on-going to characterise the diversity within the activated sludge in Danish Wastewater treatment plants with biological removal of nitrogen and phosphorus. The characterisation was initially using a suite of FISH probes but has since included the use of amplicon sequencing and metagenomics. 
 
 The participants are [Aalborg University](http://www.biotechnology.aau.dk/), [Danish Wastewater Association](http://www.stf.dk/), [Krüger A/S](http://www.kruger.dk/en/), [Kemira](http://www.kemira.com/) and approx. 50 municipal wastewater treatment plants. In collaboration with researchers across the globe the project has since been expanded to 9 countries.
