@@ -11,6 +11,6 @@
   <p class="{% if page.title == "about" %}current{% endif %}"> 
     <a href="{{ site.url }}/docs/about.html" class="button">About</a>
   </p>
-  <a id="aau_banner" href="https://github.com/aaronsaunders/midas"></a>   
+  <a id="aau_banner" href="http://www.biotechnology.aau.dk/"></a>   
 </aside>
 
