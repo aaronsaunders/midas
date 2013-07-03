@@ -62,6 +62,7 @@ body {
 
 a {
   color: rgb(32,26,82);
+  font-weight: bold;
 }
 a:hover {
   color: #2268b2;
@@ -141,7 +142,7 @@ header h2 {
   position: absolute;
   top: 150px;
   right: 0px;
-  background: url('../images/aau_resized.png') no-repeat;
+  background: url('../images/aau_resized2.png') no-repeat;
   font-weight: 700;
   width: 200px;
   height: 140px;
