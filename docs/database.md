@@ -11,3 +11,5 @@ The ambition of the MIDAS database is to deliver the best and most updated taxon
 The taxonomy supports a taxfile for the RDP classifier which we use in the Qiime pipeline.
 
 Simply use `midas_taxonomy.txt` as the taxonomy file for running the RDP classifier in conjuction with the `gg_97_otus_4feb2011.fasta` in place of the standard taxfile.
+
+[Check it out on github](https://github.com/aaronsaunders/midas).
