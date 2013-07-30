@@ -16,7 +16,7 @@ at family and genus level.
 Initially, the taxonomy supports a taxfile for the [RDP classifier](http://sourceforge.net/projects/rdp-classifier/)
 which we use in the [Qiime](http://qiime.org/) pipeline.
 
-Simply use [midas_taxonomy.txt](midas_taxonomy.txt) as the taxonomy file for running the RDP classifier in place of the standard taxfile
+Simply use `midas_taxonomy.txt` found in the [tax folder]((https://github.com/aaronsaunders/midas/archive/master.zip)) as the taxonomy file for running the RDP classifier in place of the standard taxfile
 in conjuction with the `gg_97_otus_4feb2011.fasta` refseq file from [Greengenes Feb 2011 release](http://greengenes.lbl.gov/Download/Sequence_Data/Fasta_data_files/Caporaso_Reference_OTUs/gg_otus_4feb2011.tgz)
 .
 
