@@ -116,6 +116,7 @@ header h2 {
 
 #main-content img {
   max-width: 100%;
+  float: left;
 }
 
 #forkme_banner {
@@ -139,7 +140,7 @@ header h2 {
 #aau_banner {
   display: block;
   position: absolute;
-  top: 150px;
+  top: 250px;
   right: 0px;
   background: url('../images/aau_resized2.png') no-repeat;
   font-weight: 700;
@@ -256,12 +257,12 @@ table {
 }
 
 th {
-  font-weight: 500;
+  font-weight: bold;
 }
 
 td {
   border: 1px solid #ebebeb;
-  text-align: center;
+  text-align: right;
   font-weight: 300;
 }
 
@@ -332,7 +333,7 @@ p a {
 }
 
 blockquote {
-  font-size: 1.6em;
+  font-size: 1.2em;
   border-left: 10px solid #e9e9e9;
   margin-bottom: 20px;
   padding: 0 0 0 30px;
