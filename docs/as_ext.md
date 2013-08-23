@@ -3,7 +3,7 @@ layout: default
 title: as_ext
 ---
 # DNA extraction from activated sludge
-Version 6.0 - [download as pdf](link)
+Version 6.0 - [download as pdf](https://www.dropbox.com/s/2m0fz3dt1hp8rz6/as_dna_extraction_v6.0.pdf)
 
 The protocol is a slightly modified version of the **FastDNA® Spin kit for soil**. It's important to standardise all steps in the protocol. Even small changes to the approach will result in measureable differences in the results!
 
@@ -24,7 +24,9 @@ The protocol is a slightly modified version of the **FastDNA® Spin kit for soil
 
 ## Sample input
 
-* `0.5 mL` activated sludge with a `SS of ~5 mg/mL`.
+* `0.5 mL` activated sludge with a `SS of ~5 mg/mL`. 
+
+>**Note that the amount of input materiel changes the resulting community structure. Keep it constant!**
 
 ## Preparation
 * FastDNA® Spin kit for soil
