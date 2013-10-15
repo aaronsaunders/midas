@@ -13,7 +13,9 @@ at family and genus level.
 
 ## Use
 
-Initially, the taxonomy supports a taxfile for the [RDP classifier](http://sourceforge.net/projects/rdp-classifier/)
+**The stable releases of the database can be downloaded from the [release page](https://github.com/aaronsaunders/midas/releases).**
+
+Initially, the MIDAS taxonomy supports a taxfile for the [RDP classifier](http://sourceforge.net/projects/rdp-classifier/)
 which we use in the [Qiime](http://qiime.org/) pipeline.
 
 Simply use `midas_taxonomy.txt` found in the [tax folder](https://github.com/aaronsaunders/midas/archive/master.zip) as the taxonomy file for running the RDP classifier in place of the standard taxfile
