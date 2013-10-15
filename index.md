@@ -43,4 +43,4 @@ The ambition of the MIDAS database is to deliver the best and most updated taxon
 
 
 
-Simply clone or download the [midas database on github](https://github.com/aaronsaunders/midas/). Files are prepared for taxomomic assignment with the RDP classifier in [Qiime](http://qiime.org). With the [assign_taxonomy.py](http://qiime.org/scripts/assign_taxonomy.html) script, use `tax/midas_taxonomy.txt` as the taxonomy file (-t) and `repseqs/gg_97_otus_4feb2011.fasta` as the refences sequences (-r).
+Simply clone or download the [midas database on github](https://github.com/aaronsaunders/midas/releases/). Files are prepared for taxomomic assignment with the RDP classifier in [Qiime](http://qiime.org). With the [assign_taxonomy.py](http://qiime.org/scripts/assign_taxonomy.html) script, use `tax/midas_taxonomy.txt` as the taxonomy file (-t) and `repseqs/gg_97_otus_4feb2011.fasta` as the refences sequences (-r).
