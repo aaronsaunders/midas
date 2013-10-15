@@ -1,5 +1,7 @@
 # MIDAS: The microbial database of activated sludge
 
+## This is a short version of the full information found at http://midasfieldguide.org
+
 The publically available databases are an invaluable resource for the scientific 
 community. However, the curation of a taxonomy over all Bacteria and Archaea is a 
 collosal undertaking we found that many new names were missing from the taxonomy 
