@@ -6,7 +6,7 @@ MIDAS is a central resource for information about the microbes in the engineered
 
 Nomenclature in the anarchy outside of the mainstream systematic bacteriological naming has led to considerable confusion; here we propose a provisional naming scheme for the genera in community that can be used as a reference point for linking the most updated naming (taxonomy) and sequence data with functional information about the _in situ_ metabolism of microbes in this habitat.
 
-The data is manually curated by a small team of experts so we [invite contribution](docs/about.html) if you find en error or have something that you think should be in the database. You can also sign up for the [mailing list](http://bit.ly/midassub) to receive the latest news and updates.
+The data is manually curated by a small team of experts so we [invite contribution](docs/about.html) if you find an error or have something that you think should be in the database. You can also sign up for the [mailing list](http://bit.ly/midassub) to receive the latest news and updates.
 ![MIDAS usecases](images/usecases.png)
 ## General use cases
 
