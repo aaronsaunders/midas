@@ -1,4 +1,4 @@
-# MIDAS: The microbial database of activated sludge
+# MIDAS: Field guide to the microbes of activated sludge
 
 ## This is a short version of the full information found at http://midasfieldguide.org
 
