@@ -148,6 +148,17 @@ header h2 {
   height: 210px;
 }
 
+#mailing_list {
+  display: block;
+  position: absolute;
+  top: 500px;
+  right: -40px;
+  background: transparent;
+  font-size: 15px;  
+  width: 200px;
+  height: 30px;
+}
+
 aside#sidebar {
   width: 200px;
   padding-left: 20px;
