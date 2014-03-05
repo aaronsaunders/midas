@@ -18,6 +18,8 @@ Reformats the output of ARB NDS export (name, taxonomy) for RDP classifier
 def check_taxfile_line(line, accs):
     if line.count('\t') > 1:
         return 'too many columns', accs, line
+    if line.count('\t') == 0:
+        return 'too few columns' , accs, line 
 
     acc = get_acc(line)
     if not acc:
@@ -35,7 +37,7 @@ def check_taxfile_line(line, accs):
 
 
 def get_acc(line):
-    exp = '^\d+'
+    exp = '^\w+'
     acc_mobj = re.match(exp, line)
     if not acc_mobj:
         return
@@ -78,12 +80,28 @@ def fix_taxstring(line):
     # truncates tax levels at 6
     taxstrings = [ taxname.strip() for taxname in taxstring.split(';')[:6] ]
 
-    taxprefixes = [ 'k__', 'p__', 'c__', 'o__', 'f__', 'g__'  ]
+    taxprefixes   = [ 'k__', 'p__', 'c__', 'o__', 'f__', 'g__'  ]
+    shortprefixes = [ 'k_',  'p_' , 'c_',  'o_',  'f_',  'g_'  ]
+    silvaprefixes = [ '__k',  '__p' , '__c',  '__o',  '__f',  '__g'  ]
     for level, taxname in zip(range(6), taxstrings):
         # empty levels are filled with the taxlevel placeholder
         # checks that all taxlevel prefixes have 2 underscores
-        if taxname[:4] != taxprefixes[level]:
-            taxstrings[level] = taxprefixes[level] + taxname[3:]
+        if taxname[:3] != taxprefixes[level]:
+            # remove silva prefix
+            if taxname.startswith(silvaprefixes[level]):
+                taxname = taxname[3:]
+            if taxname.startswith('__'):
+                taxname = taxname[2:]
+            if taxname.startswith('_'):
+                taxname = taxname[1:]
+            # remove if prefixes in wrong order
+            if taxname[:3] in taxprefixes:
+                taxname = taxname[3:]
+            # remove if prefixes lack a "_"
+            if taxname[:2] == shortprefixes[level]:
+                taxname = taxname[2:]
+            # add the right prefix
+            taxstrings[level] = taxprefixes[level] + taxname
 
     newline =  '{0}\t{1}\n'.format( acc, ';'.join(taxstrings) )
 
@@ -110,7 +128,7 @@ def main():
             errors.append( 'error in line {0}: {1} "{2}"'.format( n, result, newline.strip() ) )
         else:
             if line != newline.strip():
-                corrected.append('corrected error in line {0}: "{1}" to "{2}"'.format( n, line, newline.strip() ))
+                corrected.append('corrected error in line {0}:\n"{1}"\n"{2}"'.format( n, line, newline.strip() ))
             newlines.append(newline)
 
 

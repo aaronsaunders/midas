@@ -5,6 +5,10 @@
 # 5. check the order of ranks
 # 6. no acc. (wrong number of columns)
 # 7. No error!
+# 8. short prefix
+# 9. starts with "_"
+# 10. starts with "_"
+# 11. remove spaces
 001	k__Bacteria;p__Proteobacteria;c__Betaproteobacteria;o__Burkholderiales;f__Comamonadaceae
 002	k__Bacteria;p__Proteobacteria;c__Betaproteobacteria;o__Burkholderiales;f__Comamonadaceae;
 003	k__Bacteria;p__Proteobacteria;c__Betaproteobacteria;o__Burkholderiales;f__comamonadaceae;g__
@@ -13,3 +17,8 @@
 k__Bacteria;p__Proteobacteria;c__Betaproteobacteria;o__Burkholderiales;f__Comamonadaceae;g__
 006	k__Bacteria;p__Proteobacteria;c__Betaproteobacteria;o__Burkholderiales;f__Comamonadaceae;g__	
 007	k__Bacteria;p__Proteobacteria;c__Betaproteobacteria;o__Burkholderiales;f__Comamonadaceae;g__
+008	k__Bacteria;p_Proteobacteria;c__Betaproteobacteria;o__Burkholderiales;f__Comamonadaceae;g__
+009	k__Bacteria;_Proteobacteria;c__Betaproteobacteria;o__Burkholderiales;f__Comamonadaceae;g__
+010	k__Bacteria;__Proteobacteria;c__Betaproteobacteria;o__Burkholderiales;f__Comamonadaceae;g__
+011	k__Bacteria; p__Proteobacteria; c__Betaproteobacteria; o__Burkholderiales; f__Comamonadaceae; g__
+A12	Bacteria; __Armatimonadetes; __c; __o; __f; __g
