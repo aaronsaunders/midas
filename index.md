@@ -2,6 +2,9 @@
 layout: default
 title: index
 ---
+
+### NOTE: The new version of the MiDAS database and website is coming soon - end of June 2014!
+
 MIDAS is a central resource for information about the microbes in the engineered ecosystem of activated sludge and similar wastewater treatment systems, such as biofilms, granules and membrane-bioreactors. There are over 50 genera of organisms typically abundant (> 0.5%) in the community and a majority of these do not have closely-related cultured relatives. 
 
 Nomenclature in the anarchy outside of the mainstream systematic bacteriological naming has led to considerable confusion; here we propose a provisional naming scheme for the genera in community that can be used as a reference point for linking the most updated naming (taxonomy) and sequence data with functional information about the _in situ_ metabolism of microbes in this habitat.
