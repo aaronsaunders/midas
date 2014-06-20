@@ -32,7 +32,7 @@ def check_taxfile_line(line, accs, includespecies):
 
 
 def get_acc(line):
-    exp = '^\w+'
+    exp = '^[\w\.]+'
     acc_mobj = re.match(exp, line)
     if not acc_mobj:
         return
