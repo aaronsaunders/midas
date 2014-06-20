@@ -1,39 +1,34 @@
 #!/usr/bin/python
 
 import re, sys
+import argparse
+__author__ = 'aaron.marc.saunders@gmail.com'
 
-"""
-check_rdp_taxfile.py taxfilename outfilename
 
-takes a text file that ostensibly formatted for RDP classifier
-writes a corrected file to outfile
 
-Reformats the output of ARB NDS export (name, taxonomy) for RDP classifier
-
-- accepts only 6 levels with prefixes: k__, p__, c__, o__, f__, g__
-- other levels are removed
-
-"""
-
-def check_taxfile_line(line, accs):
+def check_taxfile_line(line, accs, includespecies):
+    line = line.strip()
+    
+    acc = 'missing'
     if line.count('\t') > 1:
-        return 'too many columns', accs, line
+        return ('too many columns', acc, accs, line)
     if line.count('\t') == 0:
-        return 'too few columns' , accs, line 
+        return ('Missing accession or taxstring?', acc, accs, line)
 
     acc = get_acc(line)
     if not acc:
         return 'no id', accs, line
     if acc:
-    	if acc in accs:
-            return ('duplicate id #%s' % acc), accs, line
+        if acc in accs:
+            return ('duplicate id removed', acc, accs, line)
         else:
             accs.append(acc)
 
-    newline = fix_taxstring(line)
-    result = check_taxstring(newline)
+    newline = fix_taxstring(line, includespecies)
 
-    return (result, accs, newline)
+    result  = check_taxstring(newline, includespecies)
+
+    return (result, acc, accs, newline)
 
 
 def get_acc(line):
@@ -41,11 +36,11 @@ def get_acc(line):
     acc_mobj = re.match(exp, line)
     if not acc_mobj:
         return
-    acc = acc_mobj.group()
+    acc = str(acc_mobj.group())
 
     return acc
 
-def check_taxstring(line):
+def check_taxstring(line, includespecies):
     result = 'good'
 
     columns = line.split('\t')
@@ -57,16 +52,21 @@ def check_taxstring(line):
     taxstrings = [ taxname.strip() for taxname in taxstring.split(';')[:6] ]
 
     # levels must be in order and correct
-    taxprefixes = [ 'k__', 'p__', 'c__', 'o__', 'f__', 'g__'  ]
+    taxprefixes = [ 'k__', 'p__', 'c__', 'o__', 'f__', 'g__', 's__'  ]
+    
+    if not includespecies:
+        taxprefixes = taxprefixes[:6]
+
     for level, taxname in enumerate(taxstrings):
         if taxname[:3] != taxprefixes[level]:
             result = 'wrong order of taxlevels'
 
     return result
 
-def fix_taxstring(line):
+
+def fix_taxstring(line, includespecies):
     """
-    takes a taxstring and truncates it at 6 levels and
+    takes a taxstring and truncates it at 6 or 7 levels and
     replaces missing data with placeholders (eg. 'p__')
     """
     acc, taxstring = line.split('\t')
@@ -75,15 +75,27 @@ def fix_taxstring(line):
     taxstring = taxstring.replace('/', ';')
 
     # must have 6 levels
-    taxstring = taxstring + ';' * (5 - taxstring.count(';'))
-
+    if includespecies:
+        taxstring = taxstring + ';' * (6 - taxstring.count(';'))
+    else:
+        taxstring = taxstring + ';' * (5 - taxstring.count(';'))
+    
     # truncates tax levels at 6
-    taxstrings = [ taxname.strip() for taxname in taxstring.split(';')[:6] ]
+    if includespecies:
+        taxstrings = [ taxname.strip() for taxname in taxstring.split(';')[:7] ]
+    else:  
+        taxstrings = [ taxname.strip() for taxname in taxstring.split(';')[:6] ]
 
-    taxprefixes   = [ 'k__', 'p__', 'c__', 'o__', 'f__', 'g__'  ]
-    shortprefixes = [ 'k_',  'p_' , 'c_',  'o_',  'f_',  'g_'  ]
-    silvaprefixes = [ '__k',  '__p' , '__c',  '__o',  '__f',  '__g'  ]
-    for level, taxname in zip(range(6), taxstrings):
+    taxprefixes   = [ 'k__', 'p__', 'c__', 'o__', 'f__', 'g__', 's__' ]
+    shortprefixes = [ 'k_',  'p_' , 'c_',  'o_',  'f_',  'g_', 's_' ]
+    silvaprefixes = [ '__k',  '__p' , '__c',  '__o',  '__f',  '__g', '__s' ]
+
+    if not includespecies:
+        taxprefixes   = taxprefixes[:6]
+        shortprefixes = shortprefixes[:6]
+        silvaprefixes = silvaprefixes[:6]
+
+    for level, taxname in enumerate(taxstrings):
         # empty levels are filled with the taxlevel placeholder
         # checks that all taxlevel prefixes have 2 underscores
         if taxname[:3] != taxprefixes[level]:
@@ -102,47 +114,67 @@ def fix_taxstring(line):
                 taxname = taxname[2:]
             # add the right prefix
             taxstrings[level] = taxprefixes[level] + taxname
-
+        if taxname[3:] == "uncultured":
+            taxname = taxname[:3]
+    
     newline =  '{0}\t{1}\n'.format( acc, ';'.join(taxstrings) )
 
     return newline
 
 def main():
-    filename = sys.argv[1]
-    outfilename = sys.argv[2]
+    parser = argparse.ArgumentParser(description = """checks and corrects a text file formatted for RDP classifier.
+        Writes a corrected file to outfile and details to logfile.
+        - accepts only 6 levels with prefixes: k__, p__, c__, o__, f__, g__.
+        - unless the --includespecies flag is added
+        - other levels are removed
+        - greengenes prefixes are added if not present
+        - dupicate ids are removed (first retained)""")
+    parser.add_argument('-i','--input', 
+                            help='Input taxonomy filename', required=True)
+    parser.add_argument('-o','--output',
+                        help='Cleaned taxonomy filename', required=True)
+    parser.add_argument('-l','--log',
+                        help='Log filename. The default is stdout')
+    parser.add_argument('-s', '--includespecies', default= False,
+                        help='include species.', action='store_true')
+    args = parser.parse_args()
 
-    with open(filename, 'r') as taxfile:
-        lines = taxfile.readlines()
+    taxfile = open(args.input, 'r')
+    outfile = open(args.output, 'w')
+    if args.log and args.log != '-':
+        sys.stdout = open(args.log, 'w')
+    print __doc__
+    
+    uncorrected = 0
+    corrected   = 0
+    accs        = []   # collects accs to ceck for dups
+    print 'acc\tresult\tline in\tline out' #logfile header
 
-    errors = []
-    corrected = []
-    accs = []
-    newlines = []
-    for n, line in enumerate(lines):
+    for n, line in enumerate(taxfile.readlines()):
         line = line.rstrip('\n')
         if line.startswith("#"):
             print line
             continue
-        (result, accs, newline) = check_taxfile_line(line, accs)
+
+        (result, acc, accs, newline) = check_taxfile_line(line, accs, args.includespecies)
+        
         if result != 'good':
-            errors.append( 'error in line {0}: {1} "{2}"'.format( n, result, newline.strip() ) )
-        else:
-            if line != newline.strip():
-                corrected.append('corrected error in line {0}:\n"{1}"\n"{2}"'.format( n, line, newline.strip() ))
-            newlines.append(newline)
+            print '{0}\tuncorrected: {1}\t{2}\tNA'.format(
+            	acc, result, line.split('\t')[-1] )
+            uncorrected += 1
+        if result == 'good' and line != newline.strip():
+            print '{0}\tcorrected\t{1}\t{2}'.format(
+            	acc, line.split('\t')[1], newline.strip().split('\t')[-1] )
+            corrected += 1
 
+        outfile.write(newline)
 
-    with open(outfilename, 'w') as outfile:
-        outfile.writelines(newlines)
-
-    print "finished with:"
-    print "{0} corrected errors\n".format(len(corrected))
-    for error in corrected:
-        print error
     print
-    print "{0} uncorrected errors\n".format(len(errors))
-    for error in errors:
-        print error
+    print "{0} corrected errors".format(corrected)
+    print "{0} uncorrected errors".format(uncorrected)
+
+    outfile.close()
+    taxfile.close()
 
 if __name__ == '__main__':
     main()
