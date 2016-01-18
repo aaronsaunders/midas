@@ -4,7 +4,7 @@
 
 The publically available databases are an invaluable resource for the scientific 
 community. However, the curation of a taxonomy over all Bacteria and Archaea is a 
-collosal undertaking we found that many new names were missing from the taxonomy 
+colossal undertaking we found that many new names were missing from the taxonomy 
 and many of the clades of importance in activated sludge were poorly classified.
 
 The ambition of the MIDAS database is to deliver the best and most updated taxonomy 
